@@ -3,9 +3,8 @@ package com.springmvc;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
@@ -18,13 +17,15 @@ public class HomeController {
 	}
 	
 	@RequestMapping("add")
-	public String add(@RequestParam("num1") int i, @RequestParam("num2") int j, HttpSession session)
+	public ModelAndView add(@RequestParam("num1") int i, @RequestParam("num2") int j)
 	{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("result.jsp");
 		
 		int num3 = i+j;
 		//return "result.jsp?num3=" +num3;
 		
-		session.setAttribute("num3", num3);
-		return "result.jsp";
+		mv.addObject("num3", num3);
+		return mv;
 	}
 }
