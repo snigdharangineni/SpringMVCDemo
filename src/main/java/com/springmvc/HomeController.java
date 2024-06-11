@@ -2,6 +2,7 @@ package com.springmvc;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -17,15 +18,11 @@ public class HomeController {
 	}
 	
 	@RequestMapping("add")
-	public String add(HttpServletRequest req)
+	public String add(@RequestParam("num1") int i, @RequestParam("num2") int j, HttpSession session)
 	{
-		int i = Integer.parseInt(req.getParameter("num1"));
-		int j = Integer.parseInt(req.getParameter("num2"));
 		
 		int num3 = i+j;
 		//return "result.jsp?num3=" +num3;
-		
-		HttpSession session = req.getSession();
 		
 		session.setAttribute("num3", num3);
 		return "result.jsp";
