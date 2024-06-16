@@ -1,11 +1,14 @@
 package com.springmvc;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.springmvc.model.Alien;
 
@@ -26,22 +29,19 @@ public class HomeController {
 		return "index";
 	}
 	
-	@RequestMapping("add")
-	public String add(@RequestParam("num1") int i, @RequestParam("num2") int j, Model m)
+	
+	@PostMapping(value="/addAlien")
+	public String addAlien(@ModelAttribute("alien") Alien a)
 	{
-		
-		
-		int num3 = i+j;
-		//return "result.jsp?num3=" +num3;
-		
-		m.addAttribute("num3", num3);
 		return "result";
 	}
 	
-	@RequestMapping("addAlien")
-	public String addAlien(@ModelAttribute("alien") Alien a, Model m)
+	@GetMapping(value="/getAliens")
+	public String getAliens(Model m)
 	{
-		return "result";
+		List<Alien> aliens = Arrays.asList(new Alien(101,"Snigdha"), new Alien(102, "Ram"));
+		m.addAttribute("result", aliens);
+		return "showAliens";
 	}
 	
 }
